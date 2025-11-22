@@ -51,7 +51,7 @@ Training: PyTorch Lightning, Google Colab or Kaggle
 
 Hosting: HuggingFace Hub for model & dataset storage
 
-⚙️ Usage
+Usage
 1. Setup
 git clone <repo-url>
 cd <repo-folder>
