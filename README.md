@@ -1,66 +1,88 @@
-This project explores self-alignment in large language models (LLMs) using the “Instruction Backtranslation” technique. The workflow covers efficient fine-tuning, self-augmentation, and data curation, applying state-of-the-art research for improving model instruction-following capabilities.
+This project explores self-alignment techniques for large language models (LLMs) using the Instruction Backtranslation method. It implements an end-to-end workflow covering parameter-efficient fine-tuning, synthetic data generation, and programmatic data curation—based on recent research in model alignment.
 
+Project Objectives
 
-Project Overview
-Implements: Self-alignment with instruction backtranslation, inspired by modern LLM research.
+Build a backward model that generates instructions from responses.
 
-Fine-tunes: Llama-2 7B with LoRA/QLoRA adapters for parameter-efficient adaptation.
+Use it to self-augment a dataset with new instruction–response pairs.
 
-Generates & Curates: Instruction-response pairs via a backward model and programmatic scoring.
+Curate high-quality pairs using programmatic scoring and few-shot evaluation.
 
-Deploys & Shares: Models and datasets pushed to HuggingFace for easy sharing and reuse.
+Fine-tune Llama-2 7B using LoRA/QLoRA for improved instruction following.
 
-Main Steps
+Publish models and datasets to HuggingFace for reproducibility and reuse.
+
+Project Workflow
 1. Backward Model Training
-Trained a model to generate instructions given outputs, based on the openassistant-guanaco dataset.
 
-Leveraged LoRA/QLoRA for resource-efficient fine-tuning.
+Trained a model to generate instructions from outputs using the openassistant-guanaco dataset.
 
-Published the resulting model to HuggingFace Hub.
+Used LoRA/QLoRA for parameter-efficient fine-tuning.
+
+Published the trained backward model on HuggingFace.
 
 2. Self-Augmentation
-Used the backward model to generate new instructions for single-turn completions drawn from the LIMA dataset.
+
+Generated new instructions for target completions extracted from the LIMA dataset.
+
+Created large-scale synthetic instruction–response pairs.
 
 3. Self-Curation
-Filtered and scored generated instructions/responses using few-shot prompting based on research guidelines.
 
-Built a high-quality dataset by selecting top-scoring pairs.
+Applied a programmatic scoring pipeline using few-shot prompting aligned with research best practices.
 
-Shared the curated dataset on HuggingFace.
+Filtered out low-quality or incoherent pairs.
+
+Compiled a high-quality curated dataset, shared on HuggingFace.
 
 4. Instruction Fine-Tuning
-Fine-tuned Llama-2 7B on the curated, high-quality data for improved instruction-following.
 
-Published the newly fine-tuned model.
+Fine-tuned Llama-2 7B using the curated dataset.
+
+Achieved improved instruction-following behavior.
+
+Published the final model to HuggingFace.
 
 Tech Stack
-Python, HuggingFace Transformers, Datasets, and PEFT (LoRA/QLoRA)
 
-PyTorch Lightning, Colab, and/or Kaggle for compute
+Languages & Libraries: Python, HuggingFace Transformers, Datasets, PEFT (LoRA/QLoRA)
 
-HuggingFace Hub for model and data hosting
+Training: PyTorch Lightning, Google Colab or Kaggle
 
-Usage
-Setup: Clone repo & install dependencies.
+Hosting: HuggingFace Hub for model & dataset storage
 
-Train: Run backward model fine-tuning script.
+⚙️ Usage
+1. Setup
+git clone <repo-url>
+cd <repo-folder>
+pip install -r requirements.txt
 
-Augment: Use backward model to generate new instructions for target completions.
+2. Train Backward Model
+python train_backward_model.py
 
-Curate: Apply programmatic scoring to filter best pairs.
+3. Generate Synthetic Instructions
+python generate_instructions.py
 
-Fine-Tune: Train Llama-2 7B on curated data.
+4. Curate Data
+python curate_dataset.py
 
-Publish: Push artifacts to HuggingFace Hub.
+5. Fine-Tune Llama-2 7B
+python finetune_llama2.py
 
-For full code, see the Jupyter notebook.
+6. Publish to HuggingFace
+huggingface-cli upload ...
 
-Key References
-Self-Alignment with Instruction Backtranslation (ArXiv 2023)
 
-Example HuggingFace Model: backward model
+Full implementation can be found in the included Jupyter notebooks.
 
-Example Curated Dataset: high-quality instruction-response pairs
+Artifacts on HuggingFace
 
-Fine-Tuned Model: Llama-2 7B fine-tuned for instruction-following
+Backward Model: Instruction generator (response → instruction)
 
+Curated Dataset: High-quality instruction–response pairs
+
+Final Fine-Tuned Model: Llama-2 7B aligned for instruction following
+
+Key Reference
+
+Self-Alignment with Instruction Backtranslation (ArXiv, 2023)
